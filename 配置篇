@@ -39,5 +39,37 @@ LVS、Keepalived、Ipvsadm
       esac
       exit 0
       
-  Keeplived配置解析：
+Ipvsadm配置解析：
+    ipvsadm参数
+      添加虚拟服务器
+      语法:ipvsadm -A [-t|u|f]  [vip_addr:port]  [-s:指定算法]
+      -A:添加
+      -t:TCP协议
+      -u:UDP协议
+      -f:防火墙标记
+      -D:删除虚拟服务器记录
+      -E:修改虚拟服务器记录
+      -C:清空所有记录
+      -L:查看
+      添加后端RealServer
+      语法:ipvsadm -a [-t|u|f] [vip_addr:port] [-r ip_addr] [-g|i|m] [-w 指定权重]
+      -a:添加
+      -t:TCP协议
+      -u:UDP协议
+      -f:防火墙标记
+      -r:指定后端realserver的IP
+      -g:DR模式
+      -i:TUN模式
+      -m:NAT模式
+      -w:指定权重
+      -d:删除realserver记录
+      -e:修改realserver记录
+      -l:查看
+      通用:
+      ipvsadm -ln:查看规则
+      service ipvsadm save:保存规则
+    配置LVS-DR模式实例
+    #ipvsadm -A -t 192.168.0.89:80 -s rr
+    #ipvsadm -a -t 192.168.0.89:80 -r 192.168.0.93 -g 
+    #ipvsadm -a -t 192.168.0.89:80 -r 192.168.0.94 -g
       
