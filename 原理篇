@@ -53,6 +53,10 @@ LVS原理及各种工作模式
 -----------------------------------------------------------------------------------------------------------------------------------------
            
 Keeplived原理：
+    keepalived中优先级高的节点为MASTER。MASTER其中一个职责就是响应VIP的ARP包，将VIP和MAC地址映射关系告诉局域网内其他主机，同时，它还会以多播的
+    形式向局域网中发送VRRP通告，告知自己的优先级。网络中的所有BACKUP节点只负责处理MASTER发出的多播包，当发现MASTER的优先级没自己高，或者没收到
+    MASTER的VRRP通告时，BACKUP将自己切换到MASTER状态，然后做MASTER该做的事（1.响应ARP包；2.发送VRRP通告）。
+    
     VRRP协议：
         VRRP，Virtual Router Redundancy Protocol，虚拟路由器冗余协议，是为了解决局域网中配置默认网关的单点失效问题。VRRP将局域网的一组路由器
        （包括一个Master即活动路由器和若干个Backup即备份路由器）组织成一个虚拟路由器，称之为一个备份组。这个虚拟的路由器拥有自己的IP地址
@@ -74,5 +78,3 @@ Keeplived原理：
     keepalived主从切换:
         主从切换需要将backup配置文件的priority选项的值调整的比master高50个点，然后reload配置文件就可以切换了。同时你也可以将master的
         keepalived停止，这样也可以进行主从切换。
-    
-        
