@@ -1,0 +1,6 @@
+LVS、Keepalived、Ipvsadm
+  -- lvs在功能层面，已经被集成进了当前流行的Linux kernel , 随时可用。
+  -- keepalived和ipvsadm都是lvs的管理工具，功能层面作用相同，二选一即可。keepalived是第三方的，支持lvs node本身的HA
+     以及real server故障检测等功能，而ipvsadm是lvs作者原创的, 只支持lvs自身的功能管理。
+  -- keepalived和lvs结合使用，keepalived可以完成两项工作，一是对Real Server中的机器进行健康检查，如果有问题，从服务器
+     池中剔除；二是在LoadBalance间进行容灾切换。
